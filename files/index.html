@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mindscape — Student Mental Health Check</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker">Student wellbeing estimator</p>
+    <h1>How is your digital life shaping your <em>mind</em>?</h1>
+    <p class="lede">Answer a few questions about your habits, screen time, and rest. The model behind this page estimates a mental health score from patterns it has learned in student data.</p>
+  </header>
+
+  <form id="predict-form" novalidate>
+    <p class="section-title">About you</p>
+    <div class="grid">
+      <div class="field">
+        <label for="age">Age</label>
+        <input type="number" id="age" name="age" min="10" max="100" required placeholder="e.g. 21">
+      </div>
+      <div class="field">
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender" required>
+          <option value="" disabled selected>Select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="country">Country</label>
+        <input type="text" id="country" name="country" required placeholder="e.g. India">
+      </div>
+      <div class="field">
+        <label for="academic_level">Academic level</label>
+        <select id="academic_level" name="academic_level" required>
+          <option value="" disabled selected>Select</option>
+          <option value="High School">High School</option>
+          <option value="Undergraduate">Undergraduate</option>
+          <option value="Graduate">Graduate</option>
+        </select>
+      </div>
+    </div>
+
+    <p class="section-title">Digital habits</p>
+    <div class="grid">
+      <div class="field">
+        <label for="most_used_platform">Most used platform</label>
+        <select id="most_used_platform" name="most_used_platform" required>
+          <option value="" disabled selected>Select</option>
+          <option>Facebook</option>
+          <option>LinkedIn</option>
+          <option>Instagram</option>
+          <option>Snapchat</option>
+          <option>Twitter</option>
+          <option>YouTube</option>
+          <option>TikTok</option>
+          <option>LINE</option>
+          <option>KakaoTalk</option>
+          <option>VKontakte</option>
+          <option>WhatsApp</option>
+          <option>WeChat</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="purpose_of_use">Purpose of use</label>
+        <select id="purpose_of_use" name="purpose_of_use" required>
+          <option value="" disabled selected>Select</option>
+          <option value="Networking">Networking</option>
+          <option value="Education">Education</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="News">News</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="avg_daily_usage_hours">Avg. daily usage (hours)</label>
+        <input type="number" step="0.1" id="avg_daily_usage_hours" name="avg_daily_usage_hours" min="0" max="24" required placeholder="e.g. 4.5">
+      </div>
+      <div class="field">
+        <label for="daily_unlocks">Daily phone unlocks</label>
+        <input type="number" id="daily_unlocks" name="daily_unlocks" min="0" required placeholder="e.g. 60">
+      </div>
+    </div>
+
+    <p class="section-title">Daily rhythm</p>
+    <div class="grid">
+      <div class="field">
+        <label for="study_hours">Study hours per day</label>
+        <input type="number" step="0.1" id="study_hours" name="study_hours" min="0" max="24" required placeholder="e.g. 3">
+      </div>
+      <div class="field">
+        <label for="physical_activity_hours">Physical activity (hours/day)</label>
+        <input type="number" step="0.1" id="physical_activity_hours" name="physical_activity_hours" min="0" max="24" required placeholder="e.g. 1">
+      </div>
+      <div class="field">
+        <label for="sleep_hours_per_night">Sleep per night (hours)</label>
+        <input type="number" step="0.1" id="sleep_hours_per_night" name="sleep_hours_per_night" min="0" max="24" required placeholder="e.g. 7">
+      </div>
+      <div class="field wide">
+        <label>Stress level</label>
+        <div class="stress-group" id="stress-group">
+          <input type="radio" name="stress_level" id="stress-low" value="Low" required>
+          <label for="stress-low">Low</label>
+          <input type="radio" name="stress_level" id="stress-medium" value="Medium">
+          <label for="stress-medium">Medium</label>
+          <input type="radio" name="stress_level" id="stress-high" value="High">
+          <label for="stress-high">High</label>
+          <input type="radio" name="stress_level" id="stress-veryhigh" value="Very High">
+          <label for="stress-veryhigh">Very High</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-row">
+      <button type="submit" class="submit" id="submit-btn">Get my score</button>
+      <div class="loader" id="loader">
+        <div class="dots">
+          <div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div>
+        </div>
+        <span>Running the model…</span>
+      </div>
+      <p class="error-msg" id="error-msg"></p>
+    </div>
+  </form>
+
+  <div id="result">
+    <div class="result-card">
+      <p class="result-kicker">Estimated mental health score</p>
+      <div class="score-row">
+        <div class="score-number" id="score-number">0</div>
+        <div class="score-outof">/ 10</div>
+      </div>
+      <p class="score-label" id="score-label"></p>
+      <div class="meter"><div class="meter-fill" id="meter-fill"></div></div>
+      <div class="meter-scale"><span>Struggling</span><span>Thriving</span></div>
+      <p class="disclaimer">This is a statistical estimate from a machine learning model, not a clinical diagnosis. If you're struggling, please reach out to a counselor, doctor, or someone you trust.</p>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
